@@ -1,5 +1,5 @@
 # Laravel Forum Package - Chatter
-## Modded (forked from thedevdojo/charrer)
+#### Modded (forked from thedevdojo/charrer)
 
 ### Added Packages
 
