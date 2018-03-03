@@ -4,11 +4,13 @@ namespace DevDojo\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \JordanMiguel\LaravelPopular\Traits\Visitable;
 
 class Post extends Model
 {
     use SoftDeletes;
-    
+    use Visitable;
+
     protected $table = 'chatter_post';
     public $timestamps = true;
     protected $fillable = ['chatter_discussion_id', 'user_id', 'body', 'markdown'];
