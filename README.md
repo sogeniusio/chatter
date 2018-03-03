@@ -1,5 +1,7 @@
 # Laravel Forum Package - Chatter (MOD)
 
+I forked to use for my own use case and will maintain as I see fit. This is a public package to be **used at your own risk**. 
+
 ### Dependencies
 
 Be sure to install the following packages before installing this one.
