@@ -2,7 +2,8 @@
 
 ### Added Packages
 
-1. [Laravel Popular](https://github.com/jordanmiguel/laravel-popular)
+1. [Laravel Popular](https://github.com/jordanmiguel/laravel-popular) - A Laravel package for tracking popular entries(by Models) of a website in a certain time.
+
 
 ### Original Package
 
