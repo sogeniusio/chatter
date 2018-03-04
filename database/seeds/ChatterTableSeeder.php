@@ -19,6 +19,7 @@ class ChatterTableSeeder extends Seeder
                 0 => [
                     'id'             => 1,
                     'name'           => 'Tony Lea',
+		    'username'       =  'tlea2000',
                     'email'          => 'tony@hello.com',
                     'password'       => '$2y$10$9ED4Exe2raEeaeOzk.EW6uMBKn3Ib5Q.7kABWaf4QHagOgYHU8ca.',
                     'remember_token' => 'RvlORzs8dyG8IYqssJGcuOY2F0vnjBy2PnHHTX2MoV7Hh6udjJd6hcTox3un',
