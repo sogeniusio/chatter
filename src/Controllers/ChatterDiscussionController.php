@@ -194,6 +194,7 @@ class ChatterDiscussionController extends Controller
      */
     public function show($category, $slug = null)
     {
+
         if (!isset($category) || !isset($slug)) {
             return redirect(config('chatter.routes.home'));
         }
@@ -217,6 +218,8 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion->increment('views');
+        $discussion->visit();
+
         
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
