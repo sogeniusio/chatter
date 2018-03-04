@@ -1,4 +1,4 @@
-# Laravel Forum Package - Chatter (MOD)
+# Laravel Forum Package - Chatter (MOD) - last update 03/03/2018
 
 I forked to use for my own use case and will maintain as I see fit. This is a public package to be **used at your own risk**. 
 
