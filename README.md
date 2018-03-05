@@ -5,8 +5,8 @@ I forked to use for my own use case and will maintain as I see fit. This is a pu
 ## Index
 
 - [Dependencies](#dependencies)
-	- [Laravel Popular](#laravel popular)
-	- [Laravel Favorite](#laravel favorite)
+	- [Laravel Popular](#popular)
+	- [Laravel Favorite](#favorite)
 - [Security](#security)
 
 ## Dependencies
@@ -17,12 +17,13 @@ Be sure to install the following packages before installing this one.
 
 2. [Laravel Favorites](https://github.com/ChristianKuri/laravel-favorite) - Allows Laravel Eloquent models to implement a 'favorite' or 'remember' or 'follow' feature. [See requirements](#laravel favorite)
 
-### Laravel Popular
+### Popular
 
-### Laravel Favorite
+### Favorite
 Your User model should import the Traits/Favoriteability.php trait and use it, that trait allows the user to favorite the models. (see an example below):
 
-```use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
+```
+use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable
 {
