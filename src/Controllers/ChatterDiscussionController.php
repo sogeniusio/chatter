@@ -218,11 +218,15 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion->increment('views');
+
+        /* Laravel Popular */
         $discussion->visit();
 
-        dd($discussion->favoritedBy());
+        /* Laravel Favorite */
+        if (in_array(Auth::user(), array_flatten($discussion->favoritedBy()))) {
+            $discussion->isFavoritedByUser = true;
+        }
 
-        
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 
