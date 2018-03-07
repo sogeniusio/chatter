@@ -220,6 +220,8 @@ class ChatterDiscussionController extends Controller
         $discussion->increment('views');
         $discussion->visit();
 
+        dd($discussion->favoritedBy());
+
         
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
