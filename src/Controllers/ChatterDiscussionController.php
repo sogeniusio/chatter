@@ -225,6 +225,8 @@ class ChatterDiscussionController extends Controller
         /* Laravel Favorite */
         if (in_array(Auth::user(), array_flatten($discussion->favoritedBy()))) {
             $discussion->isFavoritedByUser = true;
+        } else {
+            $discussion->isFavoritedByUser = false;
         }
 
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
