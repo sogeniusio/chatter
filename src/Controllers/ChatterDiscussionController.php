@@ -150,7 +150,7 @@ class ChatterDiscussionController extends Controller
 
         $post = Models::post()->create($new_post);
 
-        $points = Config::('forum.points.new_discussion');
+        $points = config('forum.points.new_discussion');
         $message = "User created a new discussion.";
         $user->addPoints($amount,$message);
 
