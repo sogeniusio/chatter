@@ -86,7 +86,9 @@ class ChatterDiscussionController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $user_id = Auth::user()->id;
+        $user = Auth::user();
+
+        $user_id = $user->id;
 
         if (config('chatter.security.limit_time_between_posts')) {
             if ($this->notEnoughTimeBetweenDiscussion()) {
@@ -147,6 +149,10 @@ class ChatterDiscussionController extends Controller
         $discussion->users()->attach($user_id);
 
         $post = Models::post()->create($new_post);
+
+        $points = Config::('forum.points.new_discussion');
+        $message = "User created a new discussion.";
+        $user->addPoints($amount,$message);
 
         if ($post->id) {
             Event::fire(new ChatterAfterNewDiscussion($request, $discussion, $post));
