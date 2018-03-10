@@ -152,7 +152,7 @@ class ChatterDiscussionController extends Controller
 
         $points = config('forum.points.new_discussion');
         $message = "User created a new discussion.";
-        $user->addPoints($amount,$message);
+        $user->addPoints($points,$message);
 
         if ($post->id) {
             Event::fire(new ChatterAfterNewDiscussion($request, $discussion, $post));
