@@ -24,7 +24,8 @@ Be sure to install the following packages before installing this one.
 ### Popular
 
 Use the visitable trait on the model you intend to track
-```
+
+```php
 use \JordanMiguel\LaravelPopular\Traits\Visitable;
 
 class Post extends Model
@@ -38,7 +39,7 @@ class Post extends Model
 ### Favorite
 Your User model should import the Traits/Favoriteability.php trait and use it, that trait allows the user to favorite the models. (see an example below):
 
-```
+```php
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
 
 class User extends Authenticatable
@@ -53,7 +54,7 @@ Point Transaction system for laravel 5
 
 #### Setup User Model
 
-```
+```php
 <?php
 
 namespace App;
