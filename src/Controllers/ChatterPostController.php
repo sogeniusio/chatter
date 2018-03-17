@@ -52,9 +52,9 @@ class ChatterPostController extends Controller
         $validator = Validator::make($stripped_tags_body, [
             'body' => 'required|min:10',
         ],[
-			'body.required' => trans('chatter::alert.danger.reason.content_required'),
-			'body.min' => trans('chatter::alert.danger.reason.content_min'),
-		]);
+            'body.required' => trans('chatter::alert.danger.reason.content_required'),
+            'body.min' => trans('chatter::alert.danger.reason.content_min'),
+        ]);
 
         Event::fire(new ChatterBeforeNewResponse($request, $validator));
         if (function_exists('chatter_before_new_response')) {
@@ -158,13 +158,18 @@ class ChatterPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $stripped_tags_body = ['body' => strip_tags($request->body)];
+        if (!empty($request->post)) {
+            $stripped_tags_body = ['body' => strip_tags($request->post[0]['body'])];
+        } else {
+            $stripped_tags_body = ['body' => strip_tags($request->body)];
+        }
+
         $validator = Validator::make($stripped_tags_body, [
             'body' => 'required|min:10',
         ],[
-			'body.required' => trans('chatter::alert.danger.reason.content_required'),
-			'body.min' => trans('chatter::alert.danger.reason.content_min'),
-		]);
+            'body.required' => trans('chatter::alert.danger.reason.content_required'),
+            'body.min' => trans('chatter::alert.danger.reason.content_min'),
+        ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -173,9 +178,9 @@ class ChatterPostController extends Controller
         $post = Models::post()->find($id);
         if (!Auth::guest() && (Auth::user()->id == $post->user_id)) {
             if ($post->markdown) {
-                $post->body = $request->body;
+                $post->body = $request->post[0]['body'];
             } else {
- 	        $post->body = Purifier::clean($request->body);
+            $post->body = Purifier::clean($request->post[0]['body']);
             }
             $post->save();
 
