@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use SoftDeletes;
-    use \Conner\Likeable\Likeable;
 
     protected $table = 'chatter_post';
     public $timestamps = true;

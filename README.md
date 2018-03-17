@@ -8,7 +8,6 @@ I forked to use for my own use case and will maintain as I see fit. This is a pu
 	- [Laravel Popular](#popular)
     - [Laravel Favorite](#favorite)
 	- [Laravel Pointable](#pointable)
-    - [Laravel Likeable Plugin](#likeable)
 - [Security](#security)
 
 ## Dependencies
@@ -19,9 +18,8 @@ Be sure to install the following packages before installing this one.
 
 2. [Laravel Favorites](https://github.com/ChristianKuri/laravel-favorite) - Allows Laravel Eloquent models to implement a 'favorite' or 'remember' or 'follow' feature. [Jump](#favorite)
 
-3. [Laravel Pointable](https://github.com/Trexology/laravel-pointable) - Point Transaction system for laravel 5.  [Jump](#pointable)
+3. [Laravel Pointable](https://github.com/Trexology/laravel-pointable) - Point Transaction system for laravel 5  [Jump](#pointable)
 
-4. [Laravel Likeable Plugin](https://github.com/rtconner/laravel-likeable) - Trait for Laravel Eloquent models to allow easy implementation of a "like" or "favorite" or "remember" feature.  [Jump](#likeable)
 
 ### Popular
 
@@ -68,33 +66,6 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model implements Pointable
 {
     use PointableTrait;
-}
-```
-
-### Likeable
-
-#### Composer Install (for Laravel 5)
-
-    composer require rtconner/laravel-likeable "~1.2"
-
-#### Install and then run the migrations
-
-```php
-'providers' => [
-    \Conner\Likeable\LikeableServiceProvider::class,
-],
-```
-
-```bash
-php artisan vendor:publish --provider="Conner\Likeable\LikeableServiceProvider" --tag=migrations
-php artisan migrate
-```
-
-#### Setup your models
-
-```php
-class Article extends \Illuminate\Database\Eloquent\Model {
-    use \Conner\Likeable\Likeable;
 }
 ```
 
