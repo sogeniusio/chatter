@@ -5,9 +5,14 @@ namespace DevDojo\Chatter\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Overtrue\LaravelFollow\Traits\CanBeLiked;
+use Overtrue\LaravelFollow\Traits\CanBeVoted;
+
+
 class Post extends Model
 {
     use SoftDeletes;
+    use CanBeLiked, CanBeVoted;
 
     protected $table = 'chatter_post';
     public $timestamps = true;
