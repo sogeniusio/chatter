@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Overtrue\LaravelFollow\Traits\CanBeLiked;
 use Overtrue\LaravelFollow\Traits\CanBeVoted;
 
+/* Search */
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use SoftDeletes;
-    use CanBeLiked, CanBeVoted;
+    use Searchable, SoftDeletes, CanBeLiked, CanBeVoted;
 
+    protected $touches = ['discussion'];
     protected $table = 'chatter_post';
     public $timestamps = true;
     protected $fillable = ['chatter_discussion_id', 'user_id', 'body', 'markdown'];
@@ -27,5 +29,14 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(config('chatter.user.namespace'));
+    }
+
+    public function toSearchableArray()
+    {
+        $post = $this->toArray();
+
+        $post['discussion'] = $this->discussion;
+
+        return $post;
     }
 }

@@ -10,10 +10,14 @@ use Overtrue\LaravelFollow\Traits\CanBeLiked;
 use Overtrue\LaravelFollow\Traits\CanBeVoted;
 use Overtrue\LaravelFollow\Traits\CanBeSubscribed;
 
+/* Search */
+use Laravel\Scout\Searchable;
+
 class Discussion extends Model
 {
     use SoftDeletes;
     use Visitable;
+    use Searchable;
     use CanBeLiked, CanBeVoted, CanBeSubscribed;
 
     protected $table = 'chatter_discussion';
@@ -51,5 +55,14 @@ class Discussion extends Model
     public function users()
     {
         return $this->belongsToMany(config('chatter.user.namespace'), 'chatter_user_discussion', 'discussion_id', 'user_id');
+    }
+
+    public function toSearchableArray()
+    {
+        $discussion = $this->toArray();
+
+        $discussion['intitial_post'] = $this->post['0'];
+
+        return $discussion;
     }
 }
