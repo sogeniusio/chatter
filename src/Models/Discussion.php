@@ -57,6 +57,16 @@ class Discussion extends Model
         return $this->belongsToMany(config('chatter.user.namespace'), 'chatter_user_discussion', 'discussion_id', 'user_id');
     }
 
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'discussions';
+    }
+
     public function toSearchableArray()
     {
         $discussion = $this->toArray();

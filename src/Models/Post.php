@@ -31,6 +31,16 @@ class Post extends Model
         return $this->belongsTo(config('chatter.user.namespace'));
     }
 
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'posts';
+    }
+
     public function toSearchableArray()
     {
         $post = $this->toArray();
