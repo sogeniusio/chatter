@@ -19,8 +19,29 @@ $('document').ready(function(){
 	var simplemdeInDiscussionView = newSimpleMde(document.getElementById("simplemde_in_discussion_view"));
 
 	inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
-	  uploadUrl: '/images',
-	  extraHeaders: { 'X-CSRF-Token': $('meta[name="_token"]').attr('content') }
+		    onFileUploadResponse: function(xhr) {
+		        var result = JSON.parse(xhr.responseText),
+		        filename = result[this.settings.jsonFieldName];
+		        console.log(filename);
+		        console.log(this.filenameTag);
+		        if (result && filename) {
+		            var newValue;
+		            if (typeof this.settings.urlText === 'function') {
+		                newValue = this.settings.urlText.call(this, filename, result);
+		            } else {
+		                newValue = this.settings.urlText.replace(this.filenameTag, filename);
+		            }
+		            console.log(newValue);
+		            var text = this.editor.getValue().replace(this.lastValue, newValue);
+		            this.editor.setValue(text);
+		            this.settings.onFileUploaded.call(this, filename);
+		        }
+		        return false;
+		    },
+		    uploadUrl: '/upload',
+		    jsonFieldName: 'filename',
+		    extraHeaders: { 'X-CSRF-Token': $('meta[name="_token"]').attr('content') },
+		    urlText: "![Image]({filename})"
 	});
 
 	$('.editor-toolbar .fa-columns').click(function(){
