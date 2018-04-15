@@ -11,41 +11,12 @@ if (typeof simplemdeOptions == 'undefined') {
 function newSimpleMde(element){
 	simplemdeOptions['element'] = element;
 	return new SimpleMDE(simplemdeOptions);
-
-	inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
-		    onFileUploadResponse: function(xhr) {
-		        var result = JSON.parse(xhr.responseText),
-		        filename = result[this.settings.jsonFieldName];
-		        console.log(filename);
-		        console.log(this.filenameTag);
-		        if (result && filename) {
-		            var newValue;
-		            if (typeof this.settings.urlText === 'function') {
-		                newValue = this.settings.urlText.call(this, filename, result);
-		            } else {
-		                newValue = this.settings.urlText.replace(this.filenameTag, filename);
-		            }
-		            console.log(newValue);
-		            var text = this.editor.getValue().replace(this.lastValue, newValue);
-		            this.editor.setValue(text);
-		            this.settings.onFileUploaded.call(this, filename);
-		        }
-		        return false;
-		    },
-		    uploadUrl: '/upload',
-		    jsonFieldName: 'filename',
-		    extraHeaders: { 'X-CSRF-Token': $('meta[name="_token"]').attr('content') },
-		    urlText: "![Image]({filename})"
-	});
 }
 
 $('document').ready(function(){
 
 	var simplemde = newSimpleMde(document.getElementById("simplemde"));
-	console.log(simplemde);
 	var simplemdeInDiscussionView = newSimpleMde(document.getElementById("simplemde_in_discussion_view"));
-
-
 
 	$('.editor-toolbar .fa-columns').click(function(){
 		if(!$('body').hasClass('simplemde')){
