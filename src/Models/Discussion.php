@@ -70,7 +70,7 @@ class Discussion extends Model
     public function toSearchableArray()
     {
         $discussion = $this->toArray();
-
+        $discussion['category'] = $this->category['name'];
         $discussion['intitial_post'] = $this->post['0'];
 
         return $discussion;

@@ -44,7 +44,7 @@ class Post extends Model
     public function toSearchableArray()
     {
         $post = $this->toArray();
-
+        $post['category'] = $this->discussion->category['name'];
         $post['discussion'] = $this->discussion;
 
         return $post;
