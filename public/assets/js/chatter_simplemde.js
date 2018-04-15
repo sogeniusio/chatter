@@ -11,12 +11,6 @@ if (typeof simplemdeOptions == 'undefined') {
 function newSimpleMde(element){
 	simplemdeOptions['element'] = element;
 	return new SimpleMDE(simplemdeOptions);
-}
-
-$('document').ready(function(){
-
-	var simplemde = newSimpleMde(document.getElementById("simplemde"));
-	var simplemdeInDiscussionView = newSimpleMde(document.getElementById("simplemde_in_discussion_view"));
 
 	inlineAttachment.editors.codemirror4.attach(simplemde.codemirror, {
 		    onFileUploadResponse: function(xhr) {
@@ -43,6 +37,15 @@ $('document').ready(function(){
 		    extraHeaders: { 'X-CSRF-Token': $('meta[name="_token"]').attr('content') },
 		    urlText: "![Image]({filename})"
 	});
+}
+
+$('document').ready(function(){
+
+	var simplemde = newSimpleMde(document.getElementById("simplemde"));
+	console.log(simplemde);
+	var simplemdeInDiscussionView = newSimpleMde(document.getElementById("simplemde_in_discussion_view"));
+
+
 
 	$('.editor-toolbar .fa-columns').click(function(){
 		if(!$('body').hasClass('simplemde')){
