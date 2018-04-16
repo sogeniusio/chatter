@@ -4,14 +4,21 @@ namespace DevDojo\Chatter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 use JordanMiguel\LaravelPopular\Traits\Visitable;
-use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
+use Overtrue\LaravelFollow\Traits\CanBeLiked;
+use Overtrue\LaravelFollow\Traits\CanBeVoted;
+use Overtrue\LaravelFollow\Traits\CanBeSubscribed;
+
+/* Search */
+use Laravel\Scout\Searchable;
 
 class Discussion extends Model
 {
     use SoftDeletes;
     use Visitable;
-    use Favoriteable;
+    use Searchable;
+    use CanBeLiked, CanBeVoted, CanBeSubscribed;
 
     protected $table = 'chatter_discussion';
     public $timestamps = true;
@@ -48,5 +55,24 @@ class Discussion extends Model
     public function users()
     {
         return $this->belongsToMany(config('chatter.user.namespace'), 'chatter_user_discussion', 'discussion_id', 'user_id');
+    }
+
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'discussions';
+    }
+
+    public function toSearchableArray()
+    {
+        $discussion = $this->toArray();
+        $discussion['category'] = $this->category['name'];
+        $discussion['intitial_post'] = $this->post['0'];
+
+        return $discussion;
     }
 }
