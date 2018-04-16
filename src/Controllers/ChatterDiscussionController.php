@@ -86,7 +86,9 @@ class ChatterDiscussionController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $user_id = Auth::user()->id;
+        $user = Auth::user();
+
+        $user_id = $user->id;
 
         if (config('chatter.security.limit_time_between_posts')) {
             if ($this->notEnoughTimeBetweenDiscussion()) {
@@ -148,6 +150,10 @@ class ChatterDiscussionController extends Controller
 
         $post = Models::post()->create($new_post);
 
+        $points = config('forum.points.new_discussion');
+        $message = "User created a new discussion.";
+        $user->addPoints($points,$message);
+
         if ($post->id) {
             Event::fire(new ChatterAfterNewDiscussion($request, $discussion, $post));
             if (function_exists('chatter_after_new_discussion')) {
@@ -194,6 +200,7 @@ class ChatterDiscussionController extends Controller
      */
     public function show($category, $slug = null)
     {
+
         if (!isset($category) || !isset($slug)) {
             return redirect(config('chatter.routes.home'));
         }
@@ -217,6 +224,9 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion->increment('views');
+
+        /* Laravel Popular */
+        $discussion->visit();
         
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
