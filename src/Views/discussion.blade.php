@@ -5,16 +5,7 @@
         <link href="{{ url('/vendor/devdojo/chatter/assets/vendor/spectrum/spectrum.css') }}" rel="stylesheet">
     @endif
     <link href="{{ url('/vendor/devdojo/chatter/assets/css/chatter.css') }}" rel="stylesheet">
-    @if($chatter_editor == 'simplemde')
-        <link href="{{ url('/vendor/devdojo/chatter/assets/css/simplemde.min.css') }}" rel="stylesheet">
-    @elseif($chatter_editor == 'trumbowyg')
-        <link href="{{ url('/vendor/devdojo/chatter/assets/vendor/trumbowyg/ui/trumbowyg.css') }}" rel="stylesheet">
-        <style>
-            .trumbowyg-box, .trumbowyg-editor {
-                margin: 0px auto;
-            }
-        </style>
-    @endif
+    <link href="{{ url('/vendor/devdojo/chatter/assets/css/simplemde.min.css') }}" rel="stylesheet">
 @stop
 
 
@@ -28,32 +19,6 @@
 			<h1>{{ $discussion->title }}</h1><span class="chatter_head_details"> @lang('chatter::messages.discussion.head_details')<a class="chatter_cat" href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $discussion->category->slug }}" style="background-color:{{ $discussion->category->color }}">{{ $discussion->category->name }}</a></span>
 		</div>
 	</div>
-
-	@if(config('chatter.errors'))
-		@if(Session::has('chatter_alert'))
-			<div class="chatter-alert alert alert-{{ Session::get('chatter_alert_type') }}">
-				<div class="container">
-					<strong><i class="chatter-alert-{{ Session::get('chatter_alert_type') }}"></i> {{ Config::get('chatter.alert_messages.' . Session::get('chatter_alert_type')) }}</strong>
-					{{ Session::get('chatter_alert') }}
-					<i class="chatter-close"></i>
-				</div>
-			</div>
-			<div class="chatter-alert-spacer"></div>
-		@endif
-
-		@if (count($errors) > 0)
-			<div class="chatter-alert alert alert-danger">
-				<div class="container">
-					<p><strong><i class="chatter-alert-danger"></i> @lang('chatter::alert.danger.title')</strong> @lang('chatter::alert.danger.reason.errors')</p>
-					<ul>
-						@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
-						@endforeach
-					</ul>
-				</div>
-			</div>
-		@endif
-	@endif
 
 	<div class="container margin-top">
 
@@ -112,7 +77,7 @@
 					        				@endif
 
 					        			@else
-					        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
+					        				<span class="chatter_avatar_circle" style="background-color:#{{ \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($post->user->{Config::get('chatter.user.database_field_with_user_name')}) }}">
 					        					{{ ucfirst(substr($post->user->{Config::get('chatter.user.database_field_with_user_name')}, 0, 1)) }}
 					        				</span>
 					        			@endif
@@ -161,7 +126,7 @@
 		        				@endif
 
 		        			@else
-		        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode(Auth::user()->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
+		        				<span class="chatter_avatar_circle" style="background-color:#{{ \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode(Auth::user()->{Config::get('chatter.user.database_field_with_user_name')})  }}">
 		        					{{ strtoupper(substr(Auth::user()->{Config::get('chatter.user.database_field_with_user_name')}, 0, 1)) }}
 		        				</span>
 		        			@endif
@@ -178,14 +143,7 @@
 
 						        <!-- BODY -->
 						    	<div id="editor">
-									@if( $chatter_editor == 'tinymce' || empty($chatter_editor) )
-										<label id="tinymce_placeholder">@lang('chatter::messages.editor.tinymce_placeholder')</label>
-					    				<textarea id="body" class="richText" name="body" placeholder="">{{ old('body') }}</textarea>
-					    			@elseif($chatter_editor == 'simplemde')
-					    				<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
-									@elseif($chatter_editor == 'trumbowyg')
-										<textarea class="trumbowyg" name="body" placeholder="Type Your Discussion Here...">{{ old('body') }}</textarea>
-									@endif
+									<textarea id="simplemde" name="body" placeholder="">{{ old('body') }}</textarea>
 								</div>
 
 						        <input type="hidden" name="_token" id="csrf_token_field" value="{{ csrf_token() }}">
